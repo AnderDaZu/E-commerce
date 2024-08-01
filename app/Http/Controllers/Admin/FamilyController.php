@@ -22,7 +22,7 @@ class FamilyController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
+            'name' => 'required|unique:families,name',
         ]);
 
         $family = Family::create($request->all());
@@ -42,7 +42,13 @@ class FamilyController extends Controller
 
     public function update(Request $request, Family $family)
     {
-        //
+        $request->validate([
+            'name' => "required|unique:families,name,$family->id",
+        ]);
+
+        $family->update($request->all());
+
+        return redirect()->route('admin.families.edit', $family);
     }
 
     public function destroy(Family $family)
