@@ -53,6 +53,9 @@ class FamilyController extends Controller
 
     public function destroy(Family $family)
     {
-        //
+        $familyName = $family->name;
+        $family->delete();
+        
+        return redirect()->route('admin.families.index');
     }
 }
