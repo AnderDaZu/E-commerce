@@ -1,0 +1,15 @@
+.btn {
+    @apply sm:py-1 px-2 sm:px-3 rounded-full text-2xl font-bold;
+}
+.btn-blue {
+    @apply bg-blue-500  text-white hover:bg-blue-700;
+}
+.btn-red {
+    @apply bg-red-500  text-white hover:bg-red-700;
+}
+.btn-green {
+    @apply bg-green-500  text-white hover:bg-green-700;
+}
+.btn-gray {
+    @apply bg-gray-500  text-white hover:bg-gray-700;
+}

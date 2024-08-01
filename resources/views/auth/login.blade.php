@@ -1,4 +1,6 @@
 <x-guest-layout>
+    @include('navigation-menu')
+    
     <x-authentication-card>
         <x-slot name="logo">
             <x-authentication-card-logo />
@@ -45,4 +47,14 @@
             </div>
         </form>
     </x-authentication-card>
+
+    <div class="bg-gray-100 p-4">
+        @include('./components/cstm-footer')
+    </div>
+
+    <style>
+        .min-h-content {
+            min-height: calc(100vh - 64px - 116px)
+        }
+    </style>
 </x-guest-layout>
