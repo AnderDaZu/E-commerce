@@ -1,0 +1,3 @@
+.card {
+    @apply bg-gray-50 rounded-lg shadow-md p-6;
+}
