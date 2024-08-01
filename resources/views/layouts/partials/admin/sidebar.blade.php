@@ -6,7 +6,13 @@ $links = [
         'url' => route('admin.dashboard'),
         'icon' => 'fa-solid fa-gauge-high',
         'active' => request()->routeIs('admin.dashboard'),
-    ]
+    ],
+    [
+        'name' => 'Familias',
+        'url' => route('admin.families.index'),
+        'icon' => 'fa-solid fa-box-open',
+        'active' => request()->routeIs('admin.families.*'),
+    ],
 ];
 @endphp
 

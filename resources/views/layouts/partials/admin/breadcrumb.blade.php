@@ -5,7 +5,7 @@
                 <li class="{{ !$loop->first ? "inline-flex items-center pl-2 before:float-left before:mr-2 before:content-['>']" : 'inline-flex items-center' }}">
                     @isset($breadcrumb['route'])
                         <a href="{{ $breadcrumb['route'] }}"
-                            class="inline-flex items-center justify-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
+                            class="inline-flex items-center justify-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400">
                             @if ( $loop->first )
                                 <svg class="w-3 h-3 mr-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                     fill="currentColor" viewBox="0 0 20 20">

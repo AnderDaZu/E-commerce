@@ -48,7 +48,7 @@
         <div class="mt-14">
             @include('layouts.partials.admin.breadcrumb')
 
-            <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
+            <div class="p-4 border-2 border-gray-200 rounded-lg dark:border-gray-700">
                 {{ $slot }}
             </div>
         </div>

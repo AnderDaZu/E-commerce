@@ -20,7 +20,7 @@
         </div>
 
         <div class="bg-white rounded-lg shadow-lg py-8 px-2 sm:px-4 md:px-6 lg:px-8 flex items-center justify-center">
-            <h2 class="text-base sm:text-lg md:text-xl uppercase font-semibold p-2 border-y-2 border-y-blue-900 rounded-s-lg bg-blue-900 text-gray-50">
+            <h2 class="text-base sm:text-lg md:text-xl uppercase font-semibold p-2 border-y-2 border-y-blue-900 border-l-2 border-l-blue-900 rounded-s-lg bg-blue-900 text-gray-50">
                 {{ config('app.name') }}
             </h2> 
             <span class="text-base sm:text-lg md:text-xl uppercase font-normal p-2 border-y-2 border-y-blue-900 border-r-2 border-r-blue-900 rounded-e-lg">Ecommerce</span>
