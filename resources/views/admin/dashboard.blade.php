@@ -1,4 +1,9 @@
-<x-admin-layout>
+<x-admin-layout :breadcrumbs="[
+    [
+        'name' => 'Dashboard',
+        'route' => route('admin.dashboard'),
+    ]
+]">
     <div class="grid lg:grid-cols-2 gap-6">
         <div class="bg-white rounded-lg shadow-lg py-8 px-2 sm:px-4 md:px-6 lg:px-8">
             <div class="flex items-center justify-center">
