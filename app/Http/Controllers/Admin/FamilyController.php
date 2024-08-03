@@ -66,6 +66,18 @@ class FamilyController extends Controller
     public function destroy(Family $family)
     {
         $familyName = $family->name;
+
+        if ( $family->categories->count() > 0 )
+        {
+            session()->flash('swal', [
+                'icon' => 'warning',
+                'title' => 'Ops!',
+                'text' => 'No puedes eliminar la familia: ' . $familyName . ', porque tiene categorías vículadas',
+            ]);
+
+            return redirect()->back();
+        }
+
         $family->delete();
 
         session()->flash('swal', [

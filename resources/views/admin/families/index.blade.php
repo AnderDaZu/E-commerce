@@ -77,7 +77,7 @@
                 Swal.fire({
                     title: `¿Deseas borrar esta familia "${family.name}"?`,
                     text: "No podras revertir esto!",
-                    icon: 'warning',
+                    icon: 'question',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',

@@ -32,18 +32,4 @@
                 class="text-base sm:text-lg md:text-xl uppercase font-normal p-2 border-y-2 border-y-blue-900 border-r-2 border-r-blue-900 rounded-e-lg">Ecommerce</span>
         </div>
     </div>
-
-    @push('js')
-        <script>
-            // setTimeout(() => {
-            //     Swal.fire({
-            //         title: 'Error 1!',
-            //         text: 'Do you want to continue',
-            //         icon: 'error',
-            //         confirmButtonText: 'Cool'                
-            //     });
-            // }, 10);
-        </script>
-    @endpush
-
 </x-admin-layout>
