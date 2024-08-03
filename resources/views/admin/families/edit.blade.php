@@ -11,6 +11,9 @@
         'name' => 'Editar ' . $family->name,
     ],
 ]">
+    <x-slot name="action">
+        <a href="{{ route('admin.families.create') }}" class="btn btn-blue">+</a>
+    </x-slot>
 
     <div class="card">
         <form action="{{ route('admin.families.update', $family) }}" method="post">

@@ -26,17 +26,13 @@
     @livewireStyles
 </head>
 
-<body class="font-sans antialiased" 
-    x-data="{
-        showSidebar: false
-    }"
-    :class="{
-        'overflow-y-hidden': showSidebar
-    }">
+<body class="font-sans antialiased" x-data="{
+    showSidebar: false
+}" :class="{
+    'overflow-y-hidden': showSidebar
+}">
 
-    <div class="fixed inset-0 bg-gray-900 bg-opacity-50 z-20 sm:hidden"
-        style="display: none;"
-        x-show="showSidebar"
+    <div class="fixed inset-0 bg-gray-900 bg-opacity-50 z-20 sm:hidden" style="display: none;" x-show="showSidebar"
         x-on:click="showSidebar = false">
     </div>
 
@@ -65,6 +61,25 @@
     @livewireScripts
 
     @stack('js')
+
+    @if (session('swal'))
+        <script>
+            setTimeout(() => {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.onmouseenter = Swal.stopTimer;
+                        toast.onmouseleave = Swal.resumeTimer;
+                    }
+                });
+                Toast.fire( @json(session('swal')) );
+            }, 100);
+        </script>
+    @endif
 </body>
 
 </html>

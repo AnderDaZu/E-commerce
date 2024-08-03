@@ -27,6 +27,12 @@ class FamilyController extends Controller
 
         $family = Family::create($request->all());
 
+        session()->flash('swal', [
+            'icon' => 'success',
+            'title' => '¡Bien hecho!',
+            'text' => 'Se creo la familia: ' . $family->name,
+        ]);
+
         return redirect()->route('admin.families.index');
     }
 
@@ -48,6 +54,12 @@ class FamilyController extends Controller
 
         $family->update($request->all());
 
+        session()->flash('swal', [
+            'icon' => 'success',
+            'title' => '¡Bien hecho!',
+            'text' => 'Familia se actualizó con exíto',
+        ]);
+
         return redirect()->route('admin.families.edit', $family);
     }
 
@@ -55,6 +67,12 @@ class FamilyController extends Controller
     {
         $familyName = $family->name;
         $family->delete();
+
+        session()->flash('swal', [
+            'icon' => 'info',
+            'title' => '¡Atención!',
+            'text' => 'Se eliminó la familia: ' . $familyName,
+        ]);
         
         return redirect()->route('admin.families.index');
     }

@@ -39,9 +39,9 @@
                             <td class="px-4 sm:px-6 py-4">
                                 {{ $family->name }}
                             </td>
-                            <td class="px-1 sm:px-6 py-4 w-24 sm:w-28">
+                            <td class="px-1 flex sm:px-6 py-4 w-24 sm:w-28">
                                 <a href="{{ route('admin.families.edit', $family) }}" class="mr-2">🖋️</a>
-                                <form action="{{ route('admin.categories.destroy', $family) }}" method="POST" id="formDelete-{{ $family->id }}">
+                                <form action="{{ route('admin.families.destroy', $family) }}" method="POST" id="formDelete-{{ $family->id }}">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" onclick="event.preventDefault(); deleteFamily({{ $family }})" class="font-medium text-red-600 dark:text-red-500">🗑️</button>
@@ -74,20 +74,20 @@
     @push('js')
         <script>
             function deleteFamily(family) {
-                // Swal.fire({
-                //     title: '¿Deseas borrar esta categoría?',
-                //     text: "No podras revertir esto!",
-                //     icon: 'warning',
-                //     showCancelButton: true,
-                //     confirmButtonColor: '#3085d6',
-                //     cancelButtonColor: '#d33',
-                //     confirmButtonText: 'Si, borrar',
-                //     cancelButtonText: 'Cancelar'
-                // }).then((result) => {
-                //     if (result.isConfirmed) {
+                Swal.fire({
+                    title: `¿Deseas borrar esta familia "${family.name}"?`,
+                    text: "No podras revertir esto!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Si, borrar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
                         document.getElementById('formDelete-' + family.id).submit();
-                //     }
-                // })
+                    }
+                });
             }
         </script>
     @endpush
