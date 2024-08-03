@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\FamilyController;
 use Illuminate\Support\Facades\Route;
 
@@ -7,4 +8,6 @@ Route::get('/', function () {
     return view('admin.dashboard');
 })->name('dashboard');
 
-Route::resource('family', FamilyController::class)->names('families');
+Route::resource('families', FamilyController::class)->names('families');
+
+Route::resource('categories', CategoryController::class)->names('categories');

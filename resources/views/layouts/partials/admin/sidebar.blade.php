@@ -13,6 +13,12 @@ $links = [
         'icon' => 'fa-solid fa-box-open',
         'active' => request()->routeIs('admin.families.*'),
     ],
+    [
+        'name' => 'Categorías',
+        'url' => route('admin.categories.index'),
+        'icon' => 'fa-solid fa-tags',
+        'active' => request()->routeIs('admin.categories.*'),
+    ],
 ];
 @endphp
 
