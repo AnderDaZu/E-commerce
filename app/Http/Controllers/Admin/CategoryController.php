@@ -11,9 +11,12 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = Category::orderBy('id', 'desc')->paginate(10);
+        $categories = Category::orderBy('id', 'desc')
+            ->with('family')
+            ->paginate(10);
+        $categoriesCount = $categories->count();
 
-        return view('admin.categories.index', compact('categories'));
+        return view('admin.categories.index', compact('categories', 'categoriesCount'));
     }
 
     public function create()
