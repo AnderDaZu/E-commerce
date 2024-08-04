@@ -8,7 +8,8 @@
         'route' => route('admin.families.index'),
     ],
     [
-        'name' => 'Editar ' . $family->name,
+        'name' => 'Editar Familia',
+        'focus' => 'Editar Familia: ' . $family->name,
     ],
 ]">
     <x-slot name="action">

@@ -5,7 +5,7 @@
     ],
     [
         'name' => 'Categorías',
-        'route' => route('admin.families.index'),
+        'route' => route('admin.categories.index'),
     ],
     [
         'name' => 'Crear Categoría',

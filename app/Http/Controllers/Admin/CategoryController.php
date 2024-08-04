@@ -28,7 +28,7 @@ class CategoryController extends Controller
             'family_id' => 'required',
         ]);
 
-        $family = Family::firstOrCreate(['name' => $request->family_id]);
+        $family = Family::firstOrCreate(['name' => trim($request->family_id)]);
 
         $request['family_id'] = $family->id;
 
@@ -58,7 +58,27 @@ class CategoryController extends Controller
 
     public function update(Request $request, Category $category)
     {
-        //
+        $request->validate([
+            'name' => "required|unique:categories,name,$category->id",
+            'family_id' => 'required',
+        ]);
+
+        $family = Family::firstOrCreate(['name' => trim($request->family_id)]);
+
+        $request['family_id'] = $family->id;
+
+        $category->update([
+            'name' => $request->name,
+            'family_id' => $request->family_id,
+        ]);
+
+        session()->flash('swal', [
+            'icon' => 'success',
+            'title' => '¡Bien hecho!',
+            'text' => 'Categoría se actualizó con éxito',
+        ]);
+
+        return redirect()->route('admin.categories.edit', $category);
     }
 
     public function destroy(Category $category)

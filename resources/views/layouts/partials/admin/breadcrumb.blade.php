@@ -25,7 +25,7 @@
         </ol>
 
         @if ( count($breadcrumbs) > 1 )
-            <h6 class="font-semibold md:font-bold uppercase">{{ end($breadcrumbs)['name'] }}</h6>
+            <h6 class="font-semibold md:font-bold uppercase">{{ ( isset(end($breadcrumbs)['focus']) && end($breadcrumbs)['focus'] ) ? end($breadcrumbs)['focus'] : end($breadcrumbs)['name'] }}</h6>
         @endif
     </nav>
 @endif

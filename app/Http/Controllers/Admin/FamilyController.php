@@ -57,7 +57,7 @@ class FamilyController extends Controller
         session()->flash('swal', [
             'icon' => 'success',
             'title' => '¡Bien hecho!',
-            'text' => 'Familia se actualizó con exíto',
+            'text' => 'Familia se actualizó con éxito',
         ]);
 
         return redirect()->route('admin.families.edit', $family);
