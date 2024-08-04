@@ -1,6 +1,7 @@
 @props(['breadcrumbs' => []])
 
 <!DOCTYPE html>
+
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
@@ -24,6 +25,9 @@
 
     <!-- Styles -->
     @livewireStyles
+
+    @stack('css')
+
 </head>
 
 <body class="font-sans antialiased" x-data="{
@@ -80,6 +84,7 @@
             }, 100);
         </script>
     @endif
+
 </body>
 
 </html>
