@@ -19,6 +19,12 @@ $links = [
         'icon' => 'fa-solid fa-tags',
         'active' => request()->routeIs('admin.categories.*'),
     ],
+    [
+        'name' => 'Subcategorías',
+        'url' => route('admin.subcategories.index'),
+        'icon' => 'fa-solid fa-bars-staggered',
+        'active' => request()->routeIs('admin.subcategories.*'),
+    ],
 ];
 @endphp
 
