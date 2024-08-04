@@ -46,11 +46,11 @@
 
     <div class="p-4 sm:ml-64">
         <div class="mt-14">
-            <div class="relative">
+            <div class="md:relative flex flex-col gap-1">
                 @include('layouts.partials.admin.breadcrumb')
 
                 @isset($action)
-                    <div class="absolute right-0 top-0 bottom-0 flex items-center pr-4">
+                    <div class="md:absolute md:right-0 md:top-0 md:bottom-0 flex items-center justify-end pr-4 mb-4">
                         {{ $action }}
                         {{-- <a href="{{ route('admin.families.create') }}" class="py px-2 sm:py-1 sm:px-3 bg-blue-500 rounded-full text-2xl text-white font-bold">+</a> --}}
                     </div>

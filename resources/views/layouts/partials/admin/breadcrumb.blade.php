@@ -1,5 +1,5 @@
 @if (count($breadcrumbs))
-    <nav class="flex flex-col mb-6 items-start sm:items-center justify-center" aria-label="Breadcrumb">
+    <nav class="flex flex-col md:mb-6 items-start sm:items-center justify-center" aria-label="Breadcrumb">
         <ol class="flex flex-wrap items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
             @foreach ($breadcrumbs as $breadcrumb)
                 <li class="{{ !$loop->first ? "inline-flex items-center pl-2 before:float-left before:mr-2 before:content-['>']" : 'inline-flex items-center' }}">
@@ -25,7 +25,7 @@
         </ol>
 
         @if ( count($breadcrumbs) > 1 )
-            <h6 class="font-semibold md:font-bold uppercase">{{ ( isset(end($breadcrumbs)['focus']) && end($breadcrumbs)['focus'] ) ? end($breadcrumbs)['focus'] : end($breadcrumbs)['name'] }}</h6>
+            <h6 class="text-xs sm:text-sm font-bold uppercase">{{ ( isset(end($breadcrumbs)['focus']) && end($breadcrumbs)['focus'] ) ? end($breadcrumbs)['focus'] : end($breadcrumbs)['name'] }}</h6>
         @endif
     </nav>
 @endif
