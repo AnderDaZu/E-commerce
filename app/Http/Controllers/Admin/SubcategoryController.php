@@ -47,6 +47,27 @@ class SubcategoryController extends Controller
 
     public function destroy(Subcategory $subcategory)
     {
-        //
+        $subcategoryName = $subcategory->name;
+
+        if ( $subcategory->products->count() > 0 )
+        {
+            session()->flash('swal', [
+                'icon' => 'warning',
+                'title' => 'Ops!',
+                'text' => 'No puedes eliminar la subcategoría: ' . $subcategoryName . ', porque tiene productos vículados',
+            ]);
+
+            return redirect()->back();
+        }
+
+        $subcategory->delete();
+
+        session()->flash('swal', [
+            'icon' => 'info',
+            'title' => '¡Atención!',
+            'text' => 'Se eliminó la subcategoría: ' . $subcategoryName,
+        ]);
+
+        return redirect()->route('admin.subcategories.index');
     }
 }
