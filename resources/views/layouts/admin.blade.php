@@ -66,6 +66,7 @@
 
     @stack('js')
 
+    {{-- escucha la variable de sesión que se manda --}}
     @if (session('swal'))
         <script>
             setTimeout(() => {
@@ -80,11 +81,28 @@
                         toast.onmouseleave = Swal.resumeTimer;
                     }
                 });
-                Toast.fire( @json(session('swal')) );
+                Toast.fire(@json(session('swal')));
             }, 100);
         </script>
     @endif
 
+    {{-- escucha los eventos que se emiten con livewire --}}
+    <script>
+        Livewire.on('swal', data => {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+            Toast.fire(data[0]);
+        })
+    </script>
 </body>
 
 </html>
