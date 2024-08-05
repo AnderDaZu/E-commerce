@@ -2,9 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\Product;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Storage;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,12 +18,22 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
 
         User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            'name' => 'admin',
+            'email' => 'admin@test.com',
+            'password' => bcrypt('12345678'),
         ]);
 
         $this->call([
             FamilySeeder::class,
         ]);
+
+        if ( Storage::directoryExists('public/products') )
+        {
+            Storage::deleteDirectory('public/products');    
+        }
+
+        Storage::makeDirectory('public/products/');
+
+        Product::factory(150)->create();
     }
 }
