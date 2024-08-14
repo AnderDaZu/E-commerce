@@ -11,5 +11,7 @@
         'name' => 'Crear Producto',
     ],
 ]">
+
+    @livewire('admin.products.product-create')
     
 </x-admin-layout>

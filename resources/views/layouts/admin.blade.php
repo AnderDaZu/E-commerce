@@ -82,7 +82,7 @@
                     }
                 });
                 Toast.fire(@json(session('swal')));
-            }, 100);
+            }, 500);
         </script>
     @endif
 
