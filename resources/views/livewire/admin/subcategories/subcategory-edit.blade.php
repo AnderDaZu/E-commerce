@@ -29,7 +29,7 @@
             <x-input-error for="subcategoryEdit.category_id" class="mt-2" />
         </div>
 
-        <div class="flex flex-col sm:flex-row gap-2 justify-end mt-4">
+        <div class="flex flex-col sm:flex-row gap-2 sm:justify-end mt-4">
             <x-danger-button onclick="deleteSubcategory()">
                 Eliminar
             </x-danger-button>
@@ -45,9 +45,6 @@
     </form>
 
     @push('js')
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
         <script>
             function deleteSubcategory() {
                 Swal.fire({

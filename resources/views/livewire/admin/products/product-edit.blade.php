@@ -82,10 +82,39 @@
             <x-input-error for="productEdit.price" class="mt-2" />
         </div>
 
-        <div class="flex justify-end mt-4">
+        <div class="flex flex-col sm:flex-row gap-2 sm:justify-end mt-4">
+            <x-danger-button onclick="deleteProduct()">
+                Eliminar
+            </x-danger-button>
             <x-button class="w-full sm:w-auto flex justify-center">
                 Actualizar
             </x-button>
         </div>
     </form>
+
+    <form id="formDelete" action="{{ route('admin.products.destroy', $product) }}" method="POST">
+        @method('DELETE')
+        @csrf
+    </form>
+
+    @push('js')
+        <script>
+            function deleteProduct() {
+                Swal.fire({
+                    title: '¿Deseas borrar este producto?',
+                    text: "No podras revertir esto!",
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Si, borrar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        document.getElementById('formDelete').submit();
+                    }
+                })
+            }
+        </script>
+    @endpush
 </div>

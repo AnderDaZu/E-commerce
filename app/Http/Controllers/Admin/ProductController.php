@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -45,6 +46,18 @@ class ProductController extends Controller
 
     public function destroy(Product $product)
     {
-        //
+        Storage::delete($product->image_path);
+
+        $productName = $product->name;
+        
+        $product->delete();
+
+        session()->flash('swal', [
+            'icon' => 'info',
+            'title' => '¡Atención!',
+            'text' => 'Se elimino el producto: ' . $productName,
+        ]);
+
+        return redirect()->route('admin.products.index');
     }
 }
