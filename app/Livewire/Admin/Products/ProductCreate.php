@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Family;
 use App\Models\Product;
 use App\Models\Subcategory;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -96,7 +97,9 @@ class ProductCreate extends Component
             'family_id' => 'Familia del producto',
         ]);
 
-        $this->product['image_path'] = $this->image->store('products');
+        $this->product['image_path'] = $this->image->store('public/products');
+        // Storage::delete()
+        dd($this->image->temporaryUrl());
 
         $product = Product::create($this->product);
 
