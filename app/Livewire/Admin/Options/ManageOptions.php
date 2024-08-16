@@ -5,6 +5,7 @@ namespace App\Livewire\Admin\Options;
 use App\Livewire\Forms\Admin\Option\NewOptionForm;
 use App\Models\Option;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class ManageOptions extends Component
@@ -18,6 +19,13 @@ class ManageOptions extends Component
             $this->newOption->features[$key]['value'] = '';
         }
     }   
+
+    #[On('featureAdded')]
+    public function updateOptionList()
+    {
+        $this->options = Option::with('features')->orderBy('id', 'desc')->get();
+    }
+
 
     public function boot()
     {
