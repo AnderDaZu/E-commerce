@@ -1,6 +1,7 @@
 <div>
     {{-- @dump($newFeature['value'])
     @dump($newFeature['description']) --}}
+
     <form wire:submit="addFeature" class="grid grid-cols-1 md:grid-cols-[auto_auto_80px] gap-4 sm:gap-2 mt-2">
         <div class="">
             <label for="" class="text-sm">Valor</label>
@@ -27,7 +28,7 @@
                 placeholder="Ingrese la descripción de la función" wire:model.live="newFeature.description" />
         </div>
         <div class="xs:flex xs:justify-end md:relative">
-            <button class="w-full xs:w-auto md:absolute md:bottom-0 text-sm flex justify-center xs:inline-flex btn-square btn-blue hover:cursor-pointer py-1.5"
+            <button class="w-full xs:w-auto md:absolute md:bottom-0 text-sm flex justify-center xs:inline-flex btn-square btn-blue hover:cursor-pointer py-1.5  "
                 title="Agregar valor"
                 @disabled( $this->isDisabled($newFeature['value'], $newFeature['description']) ) >
                 Agregar

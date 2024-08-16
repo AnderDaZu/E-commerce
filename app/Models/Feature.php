@@ -17,7 +17,7 @@ class Feature extends Model
     public function value(): Attribute
     {
         return new Attribute(
-            get: fn($value) => ucfirst($value),
+            get: fn($value) => strtoupper($value),
             set: fn($value) => trim(strtolower($value)),
         );
     }

@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin\Options;
 
 use App\Livewire\Forms\Admin\Option\NewOptionForm;
+use App\Models\Feature;
 use App\Models\Option;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
@@ -10,6 +11,11 @@ use Livewire\Component;
 
 class ManageOptions extends Component
 {
+    // oyente para estar a la escucha de emisión de eventos desde la vista
+    // protected $listeners = [ 
+    //     'deleteFeature',
+    // ];
+
     public $options;
     public NewOptionForm $newOption;
 
@@ -64,6 +70,23 @@ class ManageOptions extends Component
     public function removeFeature($index)
     {
         $this->newOption->removeFeature($index);
+    }
+
+    // public function deleteFeature($feature)
+    public function deleteFeature(Feature $feature)
+    {
+        $optionName = $feature->option->name;
+        $featureValue = $feature->description;
+
+        $feature->delete();
+
+        $this->options = Option::with('features')->orderBy('id', 'desc')->get();
+
+        $this->dispatch('swal', [
+            'icon' => 'info',
+            'title' => '¡Atención!',
+            'text' => 'Se eliminó de la familia "' . $optionName . '": ' . $featureValue,
+        ]);
     }
 
     public function addOption()

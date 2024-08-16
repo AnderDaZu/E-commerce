@@ -21,15 +21,27 @@
                         </div>
 
                         {{-- valores --}}
-                        <div class="flex flex-wrap gap-2">
+                        <div class="flex flex-wrap gap-2 mt-3">
                         {{-- <div class="grid grid-cols-[repeat(auto-fit,minmax(120px,1fr))] gap-2 justify-center items-center text-center"> --}}
                             @foreach ($option->features as $feature)
                                 @switch($option->type)
                                     @case(1)
-                                        <span class="bg-gray-200 text-gray-800 text-xs font-medium capitalize me-2 px-1 sm:px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-400 border border-gray-400">{{ $feature->description }}</span>
+                                        <span class="bg-gray-200 text-gray-800 text-xs font-medium capitalize me-2 px-1 sm:pl-2.5 sm:pr-2 py-0.5 rounded dark:bg-gray-700 dark:text-gray-400 border border-gray-400 hover:cursor-pointer" title="{{ $option->name }}: {{ $feature->value }}">
+                                            {{ $feature->description }}
+                                            <button onclick="confirmDelete({{ $feature }}, '{{ $option->name }}')">
+                                                <i class="fa-solid fa-circle-xmark ml-1 text-red-700 hover:text-red-900 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium text-sm text-center dark:text-gray-400 dark:hover:text-gray-500 dark dark:focus:ring-red-900 pt-[2px]" title="Eliminar valor"></i>
+                                            </button>
+                                        </span>
                                         @break
                                     @case(2)
-                                        <span class="inline-block h-6 w-6 shadow-lg rounded-full border-2 border-gray-300 dark:border-gray-700" style="background-color: {{ $feature->value }}" title="{{ $feature->description }}"></span>
+                                        <div class="relative">
+                                            <span class="inline-block h-7 w-7 xs:h-8 xs:w-8 shadow-lg rounded-full border-2 border-gray-300 dark:border-gray-700 hover:cursor-pointer" style="background-color: {{ $feature->value }}" title="{{ $feature->description }}"></span>
+                                            <button class="absolute z-10 right-3 -top-1 h-[15px] rounded-full" onclick="confirmDelete({{ $feature }}, '{{ $option->name }}')">
+                                                <div class="relative">
+                                                    <i class="fa-solid fa-circle-xmark text-red-700 hover:text-red-900 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium text-sm text-center dark:text-gray-400 dark:hover:text-gray-500 dark:focus:ring-red-900 absolute -top-1.5 bg-gray-200 dark:bg-gray-800 rounded-full" title="Eliminar valor"></i>
+                                                </div>
+                                            </button>
+                                        </div>
                                         @break
                                     @default
                                         
@@ -133,4 +145,33 @@
             </x-button>
         </x-slot>
     </x-dialog-modal>
+
+    @push('js')
+        <script>
+            function confirmDelete(feature, optionName) {
+                Swal.fire({
+                    title: `¿Deseas borrar de la familia "${optionName}" el valor con descripción: ${truncateString(feature.description)}?`,
+                    text: "No podras revertir esto!",
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Si, borrar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Livewire.dispatch('deleteFeature', { feature }); // emitir eventos
+                        @this.deleteFeature(feature);
+                    }
+                });
+            }
+
+            function truncateString(str) {
+                if (str.length > 20) {
+                    return str.slice(0, 20) + '...';
+                }
+                return str;
+            }
+        </script>
+    @endpush
 </div>

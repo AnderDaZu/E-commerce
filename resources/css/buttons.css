@@ -5,14 +5,18 @@
     @apply xs:py-1 px-2 xs:px-3 rounded-lg text-2xl font-bold;
 }
 .btn-blue {
-    @apply bg-blue-500  text-white hover:bg-blue-700 disabled:bg-blue-300 disabled:hover:cursor-default;
+    @apply bg-blue-500  text-white hover:bg-blue-700;
 }
 .btn-red {
-    @apply bg-red-500  text-white hover:bg-red-700 disabled:bg-red-300 disabled:hover:cursor-default;
+    @apply bg-red-500  text-white hover:bg-red-700;
 }
 .btn-green {
-    @apply bg-green-500  text-white hover:bg-green-700 disabled:bg-green-300 disabled:hover:cursor-default;
+    @apply bg-green-500  text-white hover:bg-green-700;
 }
 .btn-gray {
-    @apply bg-gray-500  text-white hover:bg-gray-700 disabled:bg-gray-300 disabled:hover:cursor-default;
+    @apply bg-gray-500  text-white hover:bg-gray-700;
+}
+.btn:disabled, .btn-square:disabled {
+    @apply disabled:bg-gray-300 disabled:hover:cursor-default;
+    text-shadow: 1px 1px 6px #9ca3af;
 }
