@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin\Options;
 
+use App\Livewire\Forms\Admin\Option\NewOptionForm;
 use App\Models\Option;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
@@ -9,28 +10,18 @@ use Livewire\Component;
 class ManageOptions extends Component
 {
     public $options;
-    public $openModal = false;
-    public $newOption = [
-        'name' => '',
-        'type' => 1,
-        'features' => [
-            [
-                'value' => '',
-                'description' => '',
-            ]
-        ],
-    ];
+    public NewOptionForm $newOption;
 
     public function updatedNewOptionType($value)
     {
-        foreach ($this->newOption['features'] as $key => $feature) {
-            $this->newOption['features'][$key]['value'] = '';
+        foreach ($this->newOption->features as $key => $feature) {
+            $this->newOption->features[$key]['value'] = '';
         }
     }   
 
     public function boot()
     {
-        $this->withValidator(function ($validator) {
+        $this->newOption->withValidator(function ($validator) {
             if ($validator->fails()) {
                 $this->dispatch('swal', [
                     'icon' => 'error',
@@ -59,54 +50,19 @@ class ManageOptions extends Component
 
     public function addFeature()
     {
-        $this->newOption['features'][] = [
-            'value' => '',
-            'description' => '',
-        ];
+        $this->newOption->addFeature();
     }
 
     public function removeFeature($index)
     {
-        unset($this->newOption['features'][$index]);
-        $this->newOption['features'] = array_values($this->newOption['features']);
+        $this->newOption->removeFeature($index);
     }
 
     public function addOption()
     {
-        $rules = [
-            'newOption.name' => 'required|max:255',
-            'newOption.type' => 'required|in:1,2',
-            'newOption.features' => 'required|array|min:1',
-            // 'newOption.features.*.value' => 'required|max:255',
-        ];
-        foreach ($this->newOption['features'] as $key => $feature) {
-            // $rules['newOption.features.'.$key.'.value'] = 'required|max:255';
-            if ( $this->newOption['type'] == 1 )
-            {
-                $rules['newOption.features.'.$key.'.value'] = 'required|max:255';
-            } else {
-                $rules['newOption.features.'.$key.'.value'] = 'required|regex:/^#[a-f0-9]{6}$/i';
-            }
-            $rules['newOption.features.'.$key.'.description'] = 'required|max:255';
-        }
-
-        $this->validate($rules);
-
-        $option = Option::create([
-            'name' => $this->newOption['name'],
-            'type' => $this->newOption['type'],
-        ]);
-
-        foreach ($this->newOption['features'] as $key => $feature) {
-            $option->features()->create([
-                'value' => $feature['value'],
-                'description' => $feature['description'],
-            ]);
-        }
+        $this->newOption->save();
 
         $this->options = Option::with('features')->orderBy('id', 'desc')->get();
-
-        $this->reset('newOption', 'openModal');
 
         $this->dispatch('swal', [
             'icon' => 'success',

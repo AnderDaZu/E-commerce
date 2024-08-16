@@ -6,7 +6,7 @@
             </header>
             
             <div class="pb-4 xs:pb-0 xs:pr-6">
-                <a wire:click="$set('openModal', true)" class="btn btn-blue hover:cursor-pointer" title="Agregar opción">+</a>
+                <a wire:click="$set('newOption.openModal', true)" class="btn btn-blue hover:cursor-pointer" title="Agregar opción">+</a>
             </div>
         </div>
 
@@ -43,7 +43,7 @@
         </div>
     </div>
 
-    <x-dialog-modal wire:model="openModal">
+    <x-dialog-modal wire:model="newOption.openModal">
 
         <x-slot name="title">
             Crear opción
@@ -74,13 +74,13 @@
             </div>
 
             <div class="mb-4 space-y-4">
-                @foreach ($newOption['features'] as $index => $feature)
+                @foreach ($newOption->features as $index => $feature)
                     <div class="p-6 rounded-lg border border-gray-200 relative" wire:key="{{ $index }}">
                         <span class="absolute -top-2.5 px-2 bg-slate-300 rounded-md hover:cursor-pointer font-bold text-sm" title="Valor #{{ $index + 1 }}">{{ $index + 1 }}</span>
                         <div class="grid grid-cols-1 @if ($loop->count > 1 && $loop->last) sm:grid-cols-[auto_auto_80px] @else sm:grid-cols-[auto_auto_40px] @endif gap-2 sm:gap-4">
                             <div>
                                 <label class="mb-1" >Valor</label>
-                                @switch($newOption['type'])
+                                @switch($newOption->type)
                                     @case(1)
                                         <x-input class="w-full" 
                                             wire:model.live="newOption.features.{{ $index }}.value" 
@@ -88,7 +88,7 @@
                                         @break
                                     @case(2)
                                         <div class="border border-gray-200 h-[38px] sm:h-[42px] rounded-md px-2 flex items-center justify-between gap-6">
-                                            <span class="w-[130px]">{{ $newOption['features'][$index]['value'] ?: 'Selecciona un color'  }}</span>
+                                            <span class="w-[130px]">{{ $newOption->features[$index]['value'] ?: 'Selecciona un color'  }}</span>
                                             <input type="color" class="" 
                                                 wire:model.live="newOption.features.{{ $index }}.value" 
                                                 placeholder="Ingrese el valor de la opción" />
@@ -109,11 +109,11 @@
                                     @if ( $loop->count > 1)
                                         <button wire:click="removeFeature({{ $index }})" class="btn-square btn-red hover:cursor-pointer sm:absolute sm:bottom-0 sm:start-0" title="Quitar valor"><span class="px-[1px]">-</span></button>
                                         <button wire:click="addFeature" 
-                                        @disabled( $this->isDisabled($newOption['features'][$index]['value'], $newOption['features'][$index]['description']) )
+                                        @disabled( $this->isDisabled($newOption->features[$index]['value'], $newOption->features[$index]['description']) )
                                         class="btn-square btn-blue hover:cursor-pointer sm:absolute sm:bottom-0" title="Agregar valor">+</button>
                                     @else
                                         <button wire:click="addFeature" 
-                                        @disabled( $this->isDisabled($newOption['features'][$index]['value'], $newOption['features'][$index]['description']) )
+                                        @disabled( $this->isDisabled($newOption->features[$index]['value'], $newOption->features[$index]['description']) )
                                         class="btn-square btn-blue hover:cursor-pointer sm:absolute sm:bottom-0" title="Agregar valor">+</button>
                                     @endif
                                 @endif
