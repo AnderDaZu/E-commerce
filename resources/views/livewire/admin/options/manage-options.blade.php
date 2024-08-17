@@ -18,6 +18,7 @@
                         
                         <div class="absolute -top-3 bg-gray-100 dark:bg-gray-700 rounded-md px-2 text-xs sm:text-sm font-semibold border-2 dark:border-[1px] border-gray-200 dark:border-gray-600"> 
                             {{ $option->name }}
+                            <button onclick="confirmDelete({{ $option }}, 'option')" class="ml-4" title="Eliminar opción"><i class="fa-solid fa-trash-can btn-delete"></i></button>
                         </div>
 
                         {{-- valores --}}
@@ -28,15 +29,15 @@
                                     @case(1)
                                         <span class="bg-gray-200 text-gray-800 text-xs font-medium capitalize me-2 px-1 sm:pl-2.5 sm:pr-2 py-0.5 rounded dark:bg-gray-700 dark:text-gray-400 border border-gray-400 hover:cursor-pointer" title="{{ $option->name }}: {{ $feature->value }}">
                                             {{ $feature->description }}
-                                            <button onclick="confirmDelete({{ $feature }}, '{{ $option->name }}')">
-                                                <i class="fa-solid fa-circle-xmark ml-1 text-red-700 hover:text-red-900 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium text-sm text-center dark:text-gray-400 dark:hover:text-gray-500 dark dark:focus:ring-red-900 pt-[2px]" title="Eliminar valor"></i>
+                                            <button onclick="confirmDelete({{ $feature }}, 'feature', '{{ $option->name }}')">
+                                                <i class="fa-solid fa-circle-xmark ml-1 btn-delete" title="Eliminar valor"></i>
                                             </button>
                                         </span>
                                         @break
                                     @case(2)
                                         <div class="relative">
                                             <span class="inline-block h-7 w-7 xs:h-8 xs:w-8 shadow-lg rounded-full border-2 border-gray-300 dark:border-gray-700 hover:cursor-pointer" style="background-color: {{ $feature->value }}" title="{{ $feature->description }}"></span>
-                                            <button class="absolute z-10 right-3 -top-1 h-[15px] rounded-full" onclick="confirmDelete({{ $feature }}, '{{ $option->name }}')">
+                                            <button class="absolute z-10 right-3 -top-1 h-[15px] rounded-full" onclick="confirmDelete({{ $feature }}, 'feature', '{{ $option->name }}')">
                                                 <div class="relative">
                                                     <i class="fa-solid fa-circle-xmark text-red-700 hover:text-red-900 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium text-sm text-center dark:text-gray-400 dark:hover:text-gray-500 dark:focus:ring-red-900 absolute -top-1.5 bg-gray-200 dark:bg-gray-800 rounded-full" title="Eliminar valor"></i>
                                                 </div>
@@ -148,9 +149,12 @@
 
     @push('js')
         <script>
-            function confirmDelete(feature, optionName) {
+            function confirmDelete(object, type, optionName) {
                 Swal.fire({
-                    title: `¿Deseas borrar de la familia "${optionName}" el valor con descripción: ${truncateString(feature.description)}?`,
+                    title:
+                        type == 'feature' 
+                        ? `¿Deseas borrar de la opción "${optionName}" el valor: ${truncateString(object.description)}?`
+                        : `¿Deseas borrar la opción: ${truncateString(object.name)}?`,
                     text: "No podras revertir esto!",
                     icon: 'question',
                     showCancelButton: true,
@@ -160,8 +164,17 @@
                     cancelButtonText: 'Cancelar'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        // Livewire.dispatch('deleteFeature', { feature }); // emitir eventos
-                        @this.deleteFeature(feature);
+                        switch (type) {
+                            case 'feature':
+                                @this.deleteFeature(object);   
+                                break;
+                            case 'option':
+                                @this.deleteOption(object);   
+                                break;
+                        
+                            default:
+                                break;
+                        }
                     }
                 });
             }

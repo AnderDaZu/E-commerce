@@ -85,7 +85,22 @@ class ManageOptions extends Component
         $this->dispatch('swal', [
             'icon' => 'info',
             'title' => '¡Atención!',
-            'text' => 'Se eliminó de la familia "' . $optionName . '": ' . $featureValue,
+            'text' => 'Se eliminó de la opción "' . $optionName . '": ' . $featureValue,
+        ]);
+    }
+    
+    public function deleteOption(Option $option)
+    {
+        $optionName = $option->name;
+
+        $option->delete();
+
+        $this->options = Option::with('features')->orderBy('id', 'desc')->get();
+
+        $this->dispatch('swal', [
+            'icon' => 'info',
+            'title' => '¡Atención!',
+            'text' => 'Se eliminó la opción "' . $optionName,
         ]);
     }
 
