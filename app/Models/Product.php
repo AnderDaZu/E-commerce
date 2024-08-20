@@ -59,7 +59,8 @@ class Product extends Model
     public function options()
     {
         return $this->belongsToMany(Option::class)
-            ->withPivot('value') // para que me recupere este valor de la tabla pivote
+            ->using(OptionProduct::class) // para incluir módelo de tabla pivote
+            ->withPivot('features') // para que me recupere este valor de la tabla pivote
             ->withTimestamps(); // para indicar que se debe guardar los valores de created_at y updated_at
     }
 }

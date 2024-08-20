@@ -16,6 +16,9 @@
 .btn-gray {
     @apply bg-gray-500  text-white hover:bg-gray-700;
 }
+.btn-cancel {
+    @apply bg-gray-400  text-white hover:bg-gray-500;
+}
 .btn:disabled, .btn-square:disabled {
     @apply disabled:bg-gray-300 disabled:hover:cursor-default;
     text-shadow: 1px 1px 6px #9ca3af;

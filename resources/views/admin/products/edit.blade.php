@@ -13,6 +13,7 @@
     ],
 ]">
 
-    @livewire('admin.products.product-edit', compact('product'))
+    @livewire('admin.products.product-edit', compact('product'), key('product-edit' . $product->id))
+    @livewire('admin.products.product-variants', compact('product'), key('product-variants' . $product->id))
 
 </x-admin-layout>
