@@ -12,6 +12,7 @@ class ProductVariants extends Component
     public $product;
     public $openModal = false;
     public $options;
+    public $optionsSelected;
 
     public $variant = [
         'option_id' => '',
@@ -62,7 +63,15 @@ class ProductVariants extends Component
     #[Computed()]
     public function features()
     {
-        return Feature::where('option_id', $this->variant['option_id'])->get();
+        return Feature::where('option_id', $this->variant['option_id'])
+            ->get();
+    }
+
+    public function getOptions()
+    {
+        $options = $this->product->options->toArray();
+        $this->optionsSelected = array_column($options, 'id') ?? [];
+        $this->options = Option::whereNotIn('id', $this->optionsSelected)->get();
     }
 
     public function save()
@@ -83,6 +92,8 @@ class ProductVariants extends Component
         ]);
 
         $this->reset('variant', 'openModal');
+
+        $this->getOptions();
     }
 
     public function rules()
@@ -115,7 +126,7 @@ class ProductVariants extends Component
 
     public function mount()
     {
-        $this->options = Option::all();
+        $this->getOptions();
     }
     public function render()
     {
@@ -160,9 +171,6 @@ class ProductVariants extends Component
 
     public function deleteFeature($featureId, $optionId)
     {
-        // $feature = Feature::findOrFail($featureId);
-        // dd($feature->toArray());
-        // dd($featureId);
         $this->product->options()->updateExistingPivot($optionId, [
             'features' => array_filter($this->product->options->find($optionId)->pivot->features, function($feature) use ($featureId){
                 return $feature['id'] != $featureId;
@@ -180,7 +188,6 @@ class ProductVariants extends Component
 
     public function deleteOption(Option $option)
     {
-        // dd($option->toArray());
         $this->product->options()->detach($option->id);
 
         $this->dispatch('swal', [
@@ -190,5 +197,6 @@ class ProductVariants extends Component
         ]);
 
         $this->product = $this->product->fresh();
+        $this->getOptions();
     }
 }

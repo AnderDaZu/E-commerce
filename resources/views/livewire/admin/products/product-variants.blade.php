@@ -7,8 +7,9 @@
             </header>
 
             <div class="pb-4 xs:pb-0 xs:pr-6">
-                <a wire:click="$set('openModal', true)" class="btn btn-blue hover:cursor-pointer"
-                    title="Agregar opción">+</a>
+                <button wire:click="$set('openModal', true)" class="btn btn-blue hover:cursor-pointer"
+                    @disabled( $options->count() == 0 )
+                    title="Agregar opción">+</button>
             </div>
         </div>
 
