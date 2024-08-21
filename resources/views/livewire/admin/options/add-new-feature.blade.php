@@ -1,7 +1,4 @@
 <div>
-    {{-- @dump($newFeature['value'])
-    @dump($newFeature['description']) --}}
-
     <form wire:submit="addFeature" class="grid grid-cols-1 md:grid-cols-[auto_auto_80px] gap-4 sm:gap-2 mt-2">
         <div class="">
             <label for="" class="text-sm">Valor</label>

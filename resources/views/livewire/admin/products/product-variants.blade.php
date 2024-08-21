@@ -29,12 +29,11 @@
                             </div>
                             {{-- valores --}}
                             <div class="flex flex-wrap gap-2 mt-3">
-                                {{-- <div class="grid grid-cols-[repeat(auto-fit,minmax(120px,1fr))] gap-2 justify-center items-center text-center"> --}}
-                                    @foreach ($option->pivot->features as $feature)
-                                        {{-- @dump($feature) --}}
+                                @foreach ($option->pivot->features as $feature)
+                                    <div wire:key="option-{{ $option->id }}-feature-{{ $feature['id'] }}">
                                         @switch($option->type)
                                             @case(1)
-                                                <span class="bg-gray-200 text-gray-800 text-xs font-medium capitalize me-2 px-1 sm:pl-2.5 sm:pr-2 py-0.5 rounded dark:bg-gray-700 dark:text-gray-400 border border-gray-400 hover:cursor-pointer" title="{{ $option->name }}: {{ $feature['value'] }}">
+                                                <span class="bg-gray-200 text-gray-800 text-xs font-medium capitalize me-2 px-1 sm:pl-2.5 sm:pr-2 pt-1 pb-0.5 rounded dark:bg-gray-700 dark:text-gray-400 border border-gray-400 hover:cursor-pointer" title="{{ $option->name }}: {{ $feature['value'] }}">
                                                     {{ $feature['description'] }}
                                                     <button onclick="confirmDelete({{ $option->id }}, {{ $feature['id'] }}, 'feature', '{{ $option->name }}', '{{ $feature['value'] }}', '{{ $feature['description'] }}')">
                                                         <i class="fa-solid fa-circle-xmark ml-1 btn-delete" title="Eliminar valor"></i>
@@ -52,10 +51,12 @@
                                                 </div>
                                                 @break
                                             @default
-                                                
                                         @endswitch
-                                    @endforeach
-                                </div>
+                                    </div>
+                                @endforeach
+                            </div>
+
+                            @livewire('admin.products.add-new-feature', ['product' => $product, 'optionId' => $option->id], key('add-new-feature-' . $option->id))
                         </div>
                     @endforeach
                 </div>
