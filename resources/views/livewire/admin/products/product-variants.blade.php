@@ -1,19 +1,24 @@
 <div class="mt-4">
-    <section class="bg-gray-50 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
-        <div
-            class="flex flex-col xs:flex-row xs:justify-between items-center border-b-2 border-gray-200 dark:border-gray-700">
-            <header class="p-3 sm:p-4 md:p-6">
-                <h2 class="text-base sm:text-lg font-semibold text-gray-700 dark:text-gray-200 uppercase">Opciones</h2>
+    <section class="cstm-section" x-data="{ isCollapsedOptions: true }">
+        <div class="cstm-section-part1">
+            <header class="cstm-section-header">
+                <h2 class="">
+                    Opciones 
+                    <button class="ml-1.5" @click="isCollapsedOptions = !isCollapsedOptions">
+                        <i class="fa-solid fa-caret-down hover:text-gray-400 transition-all" x-show="isCollapsedOptions" title="Ver opciones"></i>
+                        <i class="fa-solid fa-caret-up hover:text-gray-400 transition-all" x-show="!isCollapsedOptions" style="display: none;" title="Ocultar opciones"></i>
+                    </button>
+                </h2>
             </header>
 
-            <div class="pb-4 xs:pb-0 xs:pr-6">
+            <div class="cstm-section-part1-1">
                 <button wire:click="$set('openModal', true)" class="btn btn-blue hover:cursor-pointer"
                     @disabled( $options->count() == 0 )
                     title="Agregar opción">+</button>
             </div>
         </div>
 
-        <div class="p-6">
+        <div class="p-6" x-show="!isCollapsedOptions" style="display: none;">
             @if ( $product->options->count() )
                 <div class="space-y-6">
                     @foreach($product->options as $option)
@@ -72,6 +77,50 @@
                   </div>
             @endif
         </div>
+
+        <div class="p-1"></div>
+    </section>
+
+    <section class="cstm-section mt-4" x-data="{ isCollapsedVariants: true }">
+        <div class="cstm-section-part1">
+            <header class="cstm-section-header">
+                <h2>Variantes
+                    <button class="ml-1.5" @click="isCollapsedVariants = !isCollapsedVariants">
+                        <i class="fa-solid fa-caret-down hover:text-gray-400 transition-all" x-show="isCollapsedVariants" title="Ver variantes"></i>
+                        <i class="fa-solid fa-caret-up hover:text-gray-400 transition-all" x-show="!isCollapsedVariants" style="display: none;" title="Ocultar variantes"></i>
+                    </button>
+                </h2>
+            </header>
+        </div>
+
+        <div class="px-6 py-1" x-show="!isCollapsedVariants" style="display: none;">
+            <ul class="divide-y">
+                @foreach ($product->variants as $item)
+                <li class="py-4 flex items-center">
+                    <img src="{{ $item->image }}" alt="" class="w-12 h-12 object-cover object-center">
+                    <p class="divide-x text-gray-700 dark:text-gray-200 text-xs sm:text-sm">
+                        @foreach ($item->features as $feature)
+                            <span class="px-3">
+                                {{ $feature->description }} 
+                                @if ( $feature->option->type == 1 )
+                                    ({{ $feature->value }})
+                                @else
+                                    <span class="px-2 rounded-full ml-1 hover:cursor-pointer border border-gray-400 dark:border-gray-200" style="background-color: {{ $feature->value }};" title="{{ $feature->value }}"></span>
+                                @endif
+                            </span>
+                            {{-- {{ $feature->option }} --}}
+                        @endforeach
+                    </p>
+
+                    <a href="{{ route('admin.products.variants', [$product, $item]) }}" class="ml-auto" title="Editar variante">
+                        <i class="fa-solid fa-pen-to-square text-gray-700 hover:text-gray-800 dark:text-gray-200 hover:dark:text-gray-300"></i>
+                    </a>
+                </li>
+                @endforeach
+            </ul>
+        </div>
+
+        <div class="p-1"></div>
     </section>
 
     <x-dialog-modal wire:model="openModal">

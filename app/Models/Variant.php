@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Variant extends Model
 {
@@ -12,6 +14,18 @@ class Variant extends Model
     protected $fillable = [
         'sku', 'image_path', 'product_id',
     ];
+
+    protected function image(): Attribute
+    {
+        return new Attribute(
+            get: function ($value) {
+                if ($this->image_path) {
+                    return Storage::url($this->image_path);
+                }
+                return asset('app/imgs/default-image-min.webp');
+            },
+        );
+    }
 
     public function product()
     {

@@ -20,3 +20,7 @@ Route::resource('categories', CategoryController::class)->names('categories');
 Route::resource('subcategories', SubcategoryController::class)->names('subcategories');
 
 Route::resource('products', ProductController::class)->names('products');
+
+Route::get('products/{product}/variants/{variant}', [ProductController::class, 'variants'])
+    ->name('products.variants')
+    ->scopeBindings(); // valida si los objetos pasados como parametros están relacionados

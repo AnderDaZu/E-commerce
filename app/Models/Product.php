@@ -30,7 +30,7 @@ class Product extends Model
         );
     }
 
-    public function image(): Attribute
+    protected function image(): Attribute
     {
         return new Attribute(
             get: function () {
@@ -40,7 +40,7 @@ class Product extends Model
                     }
                     return Storage::url($this->image_path);
                 } else {
-                    return 'https://camarasal.com/wp-content/uploads/2020/08/default-image-5-1.jpg';
+                    return asset('app/imgs/default-image-min.webp');
                 }
             },
         );
