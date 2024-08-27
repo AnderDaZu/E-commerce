@@ -24,3 +24,7 @@ Route::resource('products', ProductController::class)->names('products');
 Route::get('products/{product}/variants/{variant}', [ProductController::class, 'variants'])
     ->name('products.variants')
     ->scopeBindings(); // valida si los objetos pasados como parametros están relacionados
+
+Route::put('products/{product}/variants/{variant}', [ProductController::class, 'variantsUpdate'])
+    ->name('products.variantsUpdate')
+    ->scopeBindings(); // valida si los objetos pasados como parametros están relacionados

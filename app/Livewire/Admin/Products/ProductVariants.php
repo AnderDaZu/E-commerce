@@ -143,7 +143,7 @@ class ProductVariants extends Component
         $features = $this->product->options->pluck('pivot.features');
     
         $combinaciones = $this->generarCombinaciones($features);
-    
+
         $this->product->variants()->delete();
     
         foreach ($combinaciones as $combinacion) {
@@ -152,6 +152,8 @@ class ProductVariants extends Component
             ]);
             $variant->features()->attach($combinacion);
         }
+
+        $this->dispatch('variant-generate');
     }
 
     public function generarCombinaciones($arrays, $indice = 0, $combinacion = [])
@@ -226,6 +228,7 @@ class ProductVariants extends Component
         $this->generarVariantes();
 
         $this->dispatch('refreshChildComponent');
+        $this->dispatch('feature-deleted');
     }
 
     public function deleteOption(Option $option)
@@ -239,9 +242,12 @@ class ProductVariants extends Component
         ]);
 
         $this->product = $this->product->fresh();
+
         $this->getOptions();
 
         $this->generarVariantes();
+
+        $this->dispatch('option-deleted');
     }
 
     public function refreshComponent()

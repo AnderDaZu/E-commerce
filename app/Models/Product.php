@@ -18,6 +18,7 @@ class Product extends Model
         'image_path',
         'price',
         'subcategory_id',
+        'stock',
     ];
 
     // protected $casts = [];

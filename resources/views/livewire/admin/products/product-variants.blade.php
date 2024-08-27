@@ -94,30 +94,41 @@
         </div>
 
         <div class="px-6 py-1" x-show="!isCollapsedVariants" style="display: none;">
-            <ul class="divide-y">
-                @foreach ($product->variants as $item)
-                <li class="py-4 flex items-center">
-                    <img src="{{ $item->image }}" alt="" class="w-12 h-12 object-cover object-center">
-                    <p class="divide-x text-gray-700 dark:text-gray-200 text-xs sm:text-sm">
-                        @foreach ($item->features as $feature)
-                            <span class="px-3">
-                                {{ $feature->description }} 
-                                @if ( $feature->option->type == 1 )
-                                    ({{ $feature->value }})
-                                @else
-                                    <span class="px-2 rounded-full ml-1 hover:cursor-pointer border border-gray-400 dark:border-gray-200" style="background-color: {{ $feature->value }};" title="{{ $feature->value }}"></span>
-                                @endif
-                            </span>
-                            {{-- {{ $feature->option }} --}}
-                        @endforeach
-                    </p>
+            @if ( $product->variants->count() )
+                <ul class="divide-y">
+                    @foreach ($product->variants as $item)
+                    <li class="py-4 flex items-center">
+                        <img src="{{ $item->image }}" alt="" class="w-12 h-12 object-cover object-center">
+                        <p class="divide-x text-gray-700 dark:text-gray-200 text-xs sm:text-sm">
+                            @foreach ($item->features as $feature)
+                                <span class="px-3">
+                                    {{ $feature->description }} 
+                                    @if ( $feature->option->type == 1 )
+                                        ({{ $feature->value }})
+                                    @else
+                                        <span class="px-2 rounded-full ml-1 hover:cursor-pointer border border-gray-400 dark:border-gray-200" style="background-color: {{ $feature->value }};" title="{{ $feature->value }}"></span>
+                                    @endif
+                                </span>
+                            @endforeach
+                        </p>
 
-                    <a href="{{ route('admin.products.variants', [$product, $item]) }}" class="ml-auto" title="Editar variante">
-                        <i class="fa-solid fa-pen-to-square text-gray-700 hover:text-gray-800 dark:text-gray-200 hover:dark:text-gray-300"></i>
-                    </a>
-                </li>
-                @endforeach
-            </ul>
+                        <a href="{{ route('admin.products.variants', [$product, $item]) }}" class="ml-auto" title="Editar variante">
+                            <i class="fa-solid fa-pen-to-square text-gray-700 hover:text-gray-800 dark:text-gray-200 hover:dark:text-gray-300"></i>
+                        </a>
+                    </li>
+                    @endforeach
+                </ul>
+            @else
+                <div class="flex items-center py-6 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400" role="alert">
+                    <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+                    </svg>
+                    <span class="sr-only">Info</span>
+                    <div>
+                    <span class="font-medium">Atención!</span> Debes agregar opciones para vincular variantes.
+                    </div>
+                </div>
+            @endif
         </div>
 
         <div class="p-1"></div>
