@@ -12,7 +12,7 @@
                     <h2 class="text-white text-center xs:text-left hidden xs:block">
                         <a href="/" class="inline-flex flex-col items-start">
                             <span class="text-lg sm:text-xl md:text-2xl lg:text-3xl leading-6 sm:leading-6 md:leading-6 lg:leading-6" style="text-shadow: 1px 1px 6px #1e3a8a;">Andershopy</span>
-                            <span class="text-sm sm:base">Tienda <span class="bg-gray-200 text-blue-700 font-medium rounded-md px-1">Online</span></span>
+                            <span class="text-sm sm:base">Tienda <span class="bg-gray-200 text-blue-700 font-semibold rounded-md px-1">Online</span></span>
                         </a>
                     </h2>
                 </div>
@@ -46,4 +46,31 @@
             </div>
         </x-cstm-container>
     </header>
+
+    <div class="fixed top-0 left-0 inset-0 bg-gray-700 bg-opacity-50 z-10"></div>
+
+    <div class="fixed top-0 left-0 z-20">
+        <div class="flex">
+            <div class="w-60 sm:w-72 md:w-80 h-screen bg-gray-200">
+                <div class="flex justify-between items-center bg-blue-600 px-4 py-3 text-gray-200">
+                    <img src="{{ asset('app/icons/1-min.webp') }}" alt="logo" class="h-8 w-auto">
+                    <button title="cerrar">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div class="h-[calc(100vh-52px)] overflow-auto">
+                    <ul>
+                        @foreach ($families as $family)
+                            <li>
+                                <a href="" class="flex items-center p-4 text-gray-700 hover:bg-blue-400 hover:text-gray-50 hover:font-semibold hover:border-y hover:border-y-blue-500 text-shadow-blue-4">
+                                    {{ $family->name }}
+                                    <i class="fa-solid fa-angle-right ml-auto"></i>
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
