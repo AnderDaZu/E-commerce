@@ -51,7 +51,7 @@
 
     <div class="fixed top-0 left-0 z-20">
         <div class="flex">
-            <div class="w-60 sm:w-72 md:w-80 h-screen bg-gray-200">
+            <div class="w-60 sm:w-72 md:w-80 h-screen bg-gray-100">
                 <div class="flex justify-between items-center bg-blue-600 px-4 py-3 text-gray-200">
                     <img src="{{ asset('app/icons/1-min.webp') }}" alt="logo" class="h-8 w-auto">
                     <button title="cerrar">
@@ -61,11 +61,36 @@
                 <div class="h-[calc(100vh-52px)] overflow-auto">
                     <ul>
                         @foreach ($families as $family)
-                            <li>
-                                <a href="" class="flex items-center p-4 text-gray-700 hover:bg-blue-400 hover:text-gray-50 hover:font-semibold hover:border-y hover:border-y-blue-500 text-shadow-blue-4">
+                            <li wire:mouseover="$set('family_id', {{ $family->id }})">
+                                <a href="" class="flex items-center p-4 hover:bg-blue-500 hover:text-white hover:font-semibold hover:border-y hover:border-y-blue-600 text-shadow-blue-4 {{ $family->id == $family_id ? 'bg-blue-500 text-white font-semibold border-r-[3px] border-r-blue-600 text-shadow-blue-4' : 'text-gray-700' }}">
                                     {{ $family->name }}
                                     <i class="fa-solid fa-angle-right ml-auto"></i>
                                 </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+
+            <div class="hidden md:block w-80 xl:w-[57rem] pt-[56px]">
+                <div class="bg-gray-50 h-[calc(100vh-56px)] px-6 py-8 overflow-auto rounded-se-md">
+                    <div class="flex justify-between mb-4 md:text-lg uppercase font-semibold bg-blue-500 py-2 px-4 rounded-sm">
+                        <h3 class="text-gray-50">{{ $this->familyName }}</h3>
+                        <a href="" class="text-lg text-gray-50 hover:text-white">
+                            <i class="fa-solid fa-angle-right"></i>
+                        </a>
+                    </div>
+                    <ul class="grid gap-6 divide-y-2 xl:divide-y-0 md:grid-cols-1 xl:grid-cols-3">
+                        @foreach ($this->categories as $category)
+                            <li class="leading-5">
+                                <a href="" class="text-blue-500 font-semibold uppercase inline-block pt-4">
+                                    {{ $category->name }}
+                                </a>
+                                <ul class="mt-4 space-y-1">
+                                    @foreach ($category->subcategories as $subcategory)
+                                        <li class="text-sm">{{ $subcategory->name }}</li>
+                                    @endforeach
+                                </ul>
                             </li>
                         @endforeach
                     </ul>
