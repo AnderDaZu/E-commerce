@@ -1,3 +1,19 @@
 .card {
     @apply bg-gray-50 rounded-lg shadow-md p-6 dark:bg-gray-800 dark:border-gray-700;
 }
+
+.cstm-section {
+    @apply bg-gray-50 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700;
+}
+.cstm-section-part1 {
+    @apply flex flex-col xs:flex-row xs:justify-between items-center border-b-2 border-gray-200 dark:border-gray-700;
+}
+.cstm-section-header {
+    @apply p-3 sm:p-4 md:p-6;
+}
+.cstm-section-header h2 {
+    @apply text-base sm:text-lg font-semibold text-gray-700 dark:text-gray-200 uppercase;
+}
+.cstm-section-part1-1 {
+    @apply pb-4 xs:pb-0 xs:pr-6;
+}

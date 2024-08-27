@@ -99,7 +99,7 @@ class ProductCreate extends Component
 
         $this->product['image_path'] = $this->image->store('public/products');
         // Storage::delete()
-        dd($this->image->temporaryUrl());
+        // dd($this->image->temporaryUrl());
 
         $product = Product::create($this->product);
 

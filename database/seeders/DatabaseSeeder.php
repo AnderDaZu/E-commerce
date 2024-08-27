@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             FamilySeeder::class,
+            OptionSeeder::class,
         ]);
 
         if ( Storage::directoryExists('public/products') )
@@ -34,6 +35,6 @@ class DatabaseSeeder extends Seeder
 
         Storage::makeDirectory('public/products/');
 
-        Product::factory(150)->create();
+        Product::factory(50)->create();
     }
 }

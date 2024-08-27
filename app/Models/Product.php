@@ -18,6 +18,7 @@ class Product extends Model
         'image_path',
         'price',
         'subcategory_id',
+        'stock',
     ];
 
     // protected $casts = [];
@@ -30,7 +31,7 @@ class Product extends Model
         );
     }
 
-    public function image(): Attribute
+    protected function image(): Attribute
     {
         return new Attribute(
             get: function () {
@@ -40,7 +41,7 @@ class Product extends Model
                     }
                     return Storage::url($this->image_path);
                 } else {
-                    return 'https://camarasal.com/wp-content/uploads/2020/08/default-image-5-1.jpg';
+                    return asset('app/imgs/default-image-min.webp');
                 }
             },
         );
@@ -59,7 +60,8 @@ class Product extends Model
     public function options()
     {
         return $this->belongsToMany(Option::class)
-            ->withPivot('value') // para que me recupere este valor de la tabla pivote
+            ->using(OptionProduct::class) // para incluir módelo de tabla pivote
+            ->withPivot('features') // para que me recupere este valor de la tabla pivote
             ->withTimestamps(); // para indicar que se debe guardar los valores de created_at y updated_at
     }
 }

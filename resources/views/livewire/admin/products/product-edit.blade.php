@@ -81,6 +81,21 @@
                 placeholder="Ingrese precio del producto" id="price" />
             <x-input-error for="productEdit.price" class="mt-2" />
         </div>
+        
+        <div class="mt-4">  
+            <x-label class="hover:cursor-pointer" for="stock" value="Stock*" title="Stock del producto, este campo es obligatorío" />
+            @if ( $product->variants->count() == 0 )
+                <x-input class="w-full" type="number" step="1" min="0" wire:model="productEdit.stock"
+                    placeholder="Ingrese stock del producto" id="stock" />
+                <x-input-error for="productEdit.stock" class="mt-2" />
+            @else
+                <x-input class="w-full read-only:bg-gray-300" type="number" step="1" min="0" 
+                    readonly
+                    wire:model="productEdit.stock"
+                    id="stock" />
+            @endif
+        </div>
+
 
         <div class="flex flex-col sm:flex-row gap-2 sm:justify-end mt-4">
             <x-danger-button onclick="deleteProduct()">

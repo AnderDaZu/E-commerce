@@ -8,6 +8,12 @@ $links = [
         'active' => request()->routeIs('admin.dashboard'),
     ],
     [
+        'name' => 'Opciones',
+        'url' => route('admin.options.index'),
+        'icon' => 'fa-solid fa-cog',
+        'active' => request()->routeIs('admin.options.*'),
+    ],
+    [
         'name' => 'Familias',
         'url' => route('admin.families.index'),
         'icon' => 'fa-solid fa-box-open',

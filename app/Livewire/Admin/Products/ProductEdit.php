@@ -7,6 +7,7 @@ use App\Models\Family;
 use App\Models\Subcategory;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -21,6 +22,8 @@ class ProductEdit extends Component
     public $family_id;
     public $category_id;
     public $selectedSubCategory;
+
+    protected $listeners = [ 'updateFieldStock' ];
 
     #[Computed()]
     public function categories()
@@ -48,7 +51,7 @@ class ProductEdit extends Component
         $this->families = Family::all();
         $this->family_id = $product->subcategory->category->family->id;
         $this->category_id = $product->subcategory->category->id;
-        $this->productEdit = $product->only('image_path', 'sku', 'name', 'description', 'subcategory_id', 'price');
+        $this->productEdit = $product->only('image_path', 'sku', 'name', 'description', 'subcategory_id', 'price', 'stock');
     }
 
     public function boot()
@@ -68,6 +71,12 @@ class ProductEdit extends Component
         return view('livewire.admin.products.product-edit');
     }
 
+    #[On('variant-generate', 'feature-deleted', 'option-deleted')] // estar a la escucha de este evento (ProductVariant:generarVariantes)
+    public function updateProduct()
+    {
+        $this->product = $this->product->fresh();
+    }
+
     public function update()
     {
         $this->validate([   
@@ -76,6 +85,7 @@ class ProductEdit extends Component
             'productEdit.name' => 'required|max:255',
             'productEdit.description' => 'nullable',
             'productEdit.price' => 'required|numeric|min:0',
+            'productEdit.stock' => 'required|numeric|min:0',
             'productEdit.subcategory_id' => 'required|exists:subcategories,id',
             'family_id' => 'required',
             'category_id' => 'required',
@@ -85,6 +95,7 @@ class ProductEdit extends Component
             'productEdit.name' => 'Nombre del producto',
             'productEdit.description' => 'Descripción del producto',
             'productEdit.price' => 'Precio del producto',
+            'productEdit.stock' => 'Stock del producto',
             'productEdit.subcategory_id' => 'Subcategoría del producto',
             'family_id' => 'Familia del producto',
             'category_id' => 'Categoría del producto',
