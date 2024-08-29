@@ -19,9 +19,47 @@
                     </h2>
                 </div>
                 <div class="flex items-center gap-2 sm:hidden">
-                    <button class="text-2xl md:text-3xl">
-                        <i class="fa-solid fa-user text-gray-200"></i>
-                    </button>
+                    <x-dropdown>
+                        <x-slot name="trigger">
+                            @auth
+                                <button class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
+                                    <img class="h-8 w-8 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
+                                </button>
+                            @else
+                                <button class="text-2xl md:text-3xl">
+                                    <i class="fa-solid fa-user text-gray-200"></i>
+                                </button>
+                            @endauth
+                        </x-slot>
+                        <x-slot name="content">
+                            @guest {{-- Si el usuario no ha iniciado sesión --}}
+                                <div class="px-4 py-2">
+                                    <div class="flex justify-center">
+                                        <a href="{{ route('login') }}" class="px-2 py-1.5 w-full text-center font-semibold sm:px-3 rounded-md hover:bg-blue-500 hover:text-white">Iniciar sesión</a>
+                                    </div>
+                                    <div class="flex justify-center">
+                                        <a href="{{ route('register') }}" class="py-1.5 hover:text-blue-500 hover:underline font-medium hover:font-semibold text-center">Registrarse</a>
+                                    </div>
+                                </div>
+                            @else {{-- Si el usuario ha iniciado sesión --}}
+                                <x-dropdown-link href="{{ route('profile.show') }}">
+                                    Pérfil
+                                </x-dropdown-link>
+    
+                                <!-- Authentication -->
+                                <form method="POST" action="{{ route('logout') }}" x-data>
+                                    @csrf
+    
+                                    <x-dropdown-link href="{{ route('logout') }}"
+                                            @click.prevent="$root.submit();">
+                                        {{ __('Log Out') }}
+                                    </x-dropdown-link>
+                                </form>
+    
+                                <div class="border-t border-gray-200"></div>
+                            @endguest
+                        </x-slot>
+                    </x-dropdown>
                     <button class="text-2xl md:text-3xl">
                         <i class="fa-solid fa-cart-shopping text-gray-200"></i>
                     </button>
@@ -39,9 +77,47 @@
                     id="search" />
             </div>
             <div class="hidden sm:flex sm:items-center sm:gap-2 md:gap-3">
-                <button class="text-2xl md:text-3xl">
-                    <i class="fa-solid fa-user text-gray-200"></i>
-                </button>
+                <x-dropdown>
+                    <x-slot name="trigger">
+                        @auth
+                            <button class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
+                                <img class="h-8 w-8 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
+                            </button>
+                        @else
+                            <button class="text-2xl md:text-3xl">
+                                <i class="fa-solid fa-user text-gray-200"></i>
+                            </button>
+                        @endauth
+                    </x-slot>
+                    <x-slot name="content">
+                        @guest {{-- Si el usuario no ha iniciado sesión --}}
+                            <div class="px-4 py-2">
+                                <div class="flex justify-center">
+                                    <a href="{{ route('login') }}" class="px-2 py-1.5 w-full text-center font-semibold sm:px-3 rounded-md hover:bg-blue-500 hover:text-white">Iniciar sesión</a>
+                                </div>
+                                <div class="flex justify-center">
+                                    <a href="{{ route('register') }}" class="py-1.5 hover:text-blue-500 hover:underline font-medium hover:font-semibold text-center">Registrarse</a>
+                                </div>
+                            </div>
+                        @else {{-- Si el usuario ha iniciado sesión --}}
+                            <x-dropdown-link href="{{ route('profile.show') }}">
+                                Pérfil
+                            </x-dropdown-link>
+
+                            <!-- Authentication -->
+                            <form method="POST" action="{{ route('logout') }}" x-data>
+                                @csrf
+
+                                <x-dropdown-link href="{{ route('logout') }}"
+                                        @click.prevent="$root.submit();">
+                                    {{ __('Log Out') }}
+                                </x-dropdown-link>
+                            </form>
+
+                            <div class="border-t border-gray-200"></div>
+                        @endguest
+                    </x-slot>
+                </x-dropdown>
                 <button class="text-2xl md:text-3xl">
                     <i class="fa-solid fa-cart-shopping text-gray-200"></i>
                 </button>
@@ -81,7 +157,7 @@
             </div>
 
             <div class="hidden md:block w-80 xl:w-[57rem] pt-[56px]">
-                <div class="bg-gray-50 h-[calc(100vh-56px)] px-6 py-8 overflow-auto rounded-se-md">
+                <div class="bg-gray-50 h-[calc(100vh-56px)] px-6 py-8 overflow-auto">
                     <div class="flex justify-between mb-4 md:text-lg uppercase font-semibold bg-blue-500 py-2 px-4 rounded-sm">
                         <h3 class="text-gray-50">{{ $this->familyName }}</h3>
                         <a href="" class="text-lg text-gray-50 hover:text-white">
