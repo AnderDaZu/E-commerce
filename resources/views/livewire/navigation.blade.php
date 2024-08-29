@@ -1,8 +1,10 @@
-<div>
+<div x-data="{
+    open: false,
+}">
     <header class="bg-blue-600">
         <x-cstm-container class="flex flex-col space-y-4 sm:flex-row sm:space-y-0 sm:space-x-6">
             <div class="flex justify-between sm:justify-start sm:gap-6">
-                <button class="text-2xl">
+                <button x-on:click="open = true" class="text-2xl">
                     <i class="fa-solid fa-bars text-gray-200 hover:cursor-pointer" title="Menu"></i>
                 </button>
                 <div class="flex gap-3">
@@ -32,7 +34,7 @@
                     <i class="fa-solid fa-magnifying-glass w-4 h-4"></i>
                 </label>
                 <x-input type="text" class="w-full rounded-none rounded-e-lg" 
-                    wire:model="search"
+                    {{-- wire:model="search" --}}
                     placeholder="Buscar por producto, tienda o marca"
                     id="search" />
             </div>
@@ -47,14 +49,20 @@
         </x-cstm-container>
     </header>
 
-    <div class="fixed top-0 left-0 inset-0 bg-gray-700 bg-opacity-50 z-10"></div>
+    <div x-show="open" x-on:click="open = false" style="display: none;" class="fixed top-0 left-0 inset-0 bg-gray-700 bg-opacity-50 z-10"></div>
 
-    <div class="fixed top-0 left-0 z-20">
+    <div x-show="open" style="display: none;" class="fixed top-0 left-0 z-20"
+        x-transition:enter="transition ease-out duration-500"
+        x-transition:enter-start="opacity-0 transform -translate-x-full"
+        x-transition:enter-end="opacity-100 transform translate-x-0"
+        x-transition:leave="transition ease-in duration-300"
+        x-transition:leave-start="opacity-100 transform translate-x-0"
+        x-transition:leave-end="opacity-0 transform -translate-x-full">
         <div class="flex">
             <div class="w-60 sm:w-72 md:w-80 h-screen bg-gray-100">
                 <div class="flex justify-between items-center bg-blue-600 px-4 py-3 text-gray-200">
                     <img src="{{ asset('app/icons/1-min.webp') }}" alt="logo" class="h-8 w-auto">
-                    <button title="cerrar">
+                    <button x-on:click="open = false" title="cerrar">
                         <i class="fa-solid fa-xmark"></i>
                     </button>
                 </div>
