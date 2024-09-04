@@ -1,5 +1,5 @@
 @php
-    
+
 $links = [
     [
         'name' => 'Dashboard',
@@ -36,6 +36,12 @@ $links = [
         'url' => route('admin.products.index'),
         'icon' => 'fa-solid fa-box',
         'active' => request()->routeIs('admin.products.*'),
+    ],
+    [
+        'name' => 'Portadas',
+        'url' => route('admin.covers.index'),
+        'icon' => 'fa-solid fa-image',
+        'active' => request()->routeIs('admin.covers.*'),
     ],
 ];
 @endphp

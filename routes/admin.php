@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\FamilyController;
 use App\Http\Controllers\Admin\OptionController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SubcategoryController;
+use App\Http\Controllers\Admin\CoverController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -28,3 +29,5 @@ Route::get('products/{product}/variants/{variant}', [ProductController::class, '
 Route::put('products/{product}/variants/{variant}', [ProductController::class, 'variantsUpdate'])
     ->name('products.variantsUpdate')
     ->scopeBindings(); // valida si los objetos pasados como parametros están relacionados
+
+Route::resource('covers', CoverController::class)->names('covers');
