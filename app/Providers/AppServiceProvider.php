@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Cover;
+use App\Observers\CoverObserver;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +21,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // para registrar un observador, la otra forma es directamente en el móddelo
+        // Cover::observe(CoverObserver::class);
     }
 }
