@@ -50,7 +50,7 @@ class ProductController extends Controller
         Storage::delete($product->image_path);
 
         $productName = $product->name;
-        
+
         $product->delete();
 
         session()->flash('swal', [
@@ -84,7 +84,7 @@ class ProductController extends Controller
                 Storage::delete($variant->image_path);
             }
 
-            $data['image_path'] = $request->image->store('public/products');
+            $data['image_path'] = $request->image->store('products');
         }
 
         $variant->update($data);

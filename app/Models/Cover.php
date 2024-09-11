@@ -26,7 +26,7 @@ class Cover extends Model
         'end_at' => 'datetime',
     ];
 
-    protected function image()
+    protected function image(): Attribute
     {
         return Attribute::make(
             get: fn() => Storage::url($this->image_path)

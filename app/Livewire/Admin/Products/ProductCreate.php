@@ -28,7 +28,7 @@ class ProductCreate extends Component
         'subcategory_id' => '',
         'image_path' => '',
     ];
- 
+
     public function updatedFamilyId()
     {
         $this->category_id = '';
@@ -97,7 +97,7 @@ class ProductCreate extends Component
             'family_id' => 'Familia del producto',
         ]);
 
-        $this->product['image_path'] = $this->image->store('public/products');
+        $this->product['image_path'] = $this->image->store('products');
         // Storage::delete()
         // dd($this->image->temporaryUrl());
 

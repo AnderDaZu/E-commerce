@@ -79,7 +79,7 @@ class ProductEdit extends Component
 
     public function update()
     {
-        $this->validate([   
+        $this->validate([
             'image' => 'nullable|image|max:1024',
             'productEdit.sku' => 'required|unique:products,sku,' .$this->product->id,
             'productEdit.name' => 'required|max:255',
@@ -104,8 +104,8 @@ class ProductEdit extends Component
         if ( $this->image ){
 
             Storage::delete($this->productEdit['image_path']);
-            $this->productEdit['image_path'] = $this->image->store('public/products');
-            
+            $this->productEdit['image_path'] = $this->image->store('products');
+
             // Eliminar imagen temporal
             if ( file_exists( $this->image->getRealPath() ) ) {
                 unlink( $this->image->getRealPath() );
