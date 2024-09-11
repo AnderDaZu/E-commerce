@@ -11,7 +11,8 @@ class CoverController extends Controller
 {
     public function index()
     {
-        return view('admin.covers.index');
+        $covers = Cover::orderBy('is_active', 'desc')->orderBy('order')->paginate(10);
+        return view('admin.covers.index', compact('covers'));
     }
 
     public function create()
