@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\SortController;
 use App\Models\Category;
 use App\Models\Family;
 use Illuminate\Http\Request;
@@ -36,3 +37,5 @@ Route::get('categories', function (Request $request) {
             ];
         });
 })->name('api.categories.index');
+
+Route::post('sort/covers', [SortController::class, 'covers'])->name('api.sort.covers');

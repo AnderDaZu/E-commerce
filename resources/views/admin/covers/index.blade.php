@@ -40,9 +40,10 @@
                         </th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="covers">
                     @foreach ($covers as $cover)
-                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 cursor-move"
+                            data-id="{{ $cover->id }}">
                             <th scope="row" class="px-4 sm:px-6 py-4 w-8 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {{ $cover->order }}
                             </th>
@@ -105,6 +106,7 @@
     @endif
 
     @push('js')
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.3/Sortable.min.js"></script>
         <script>
             function deleteCover(cover) {
                 Swal.fire({
@@ -122,6 +124,23 @@
                     }
                 });
             }
+
+            new Sortable(covers, {
+                animation: 150,
+                ghostClass: 'bg-blue-100',
+                store: {
+                    set: (sortable) => {
+                        const sorts = sortable.toArray();
+
+                        axios.post("{{ route('api.sort.covers') }}", {
+                            sorts: sorts
+                        }).catch((error) => {
+                            console.log(error);
+                        });
+                    }
+                }
+            });
+
         </script>
     @endpush
 
