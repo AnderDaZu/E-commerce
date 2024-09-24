@@ -14,7 +14,7 @@
                         </path>
                     </svg>
                 </button>
-                <a href="{{ route('dashboard') }}" class="flex ms-2 md:me-24">
+                <a href="{{ route('home') }}" class="flex ms-2 md:me-24">
                     <img src="{{ asset('app/icons/1-min.webp') }}" class="h-6 sm:h-8 me-1 sm:me-3" alt="FlowBite Logo" />
                     <span class="self-center text-lg sm:text-2xl font-semibold whitespace-nowrap dark:text-white uppercase">
                         Andershopy

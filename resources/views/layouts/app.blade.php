@@ -16,6 +16,9 @@
         {{-- Icons -> Font Awesome --}}
         <script src="https://kit.fontawesome.com/69430ceab9.js" crossorigin="anonymous"></script>
 
+        <!-- Styles -->
+        @stack('css')
+
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -38,5 +41,7 @@
         @stack('modals')
 
         @livewireScripts
+
+        @stack('js')
     </body>
 </html>
