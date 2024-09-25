@@ -1,3 +1,7 @@
 .text-shadow-blue-4:hover {
     text-shadow: 1px 1px 4px #1d4ed8;
 }
+
+.text-shadow-gray {
+    text-shadow: 1px 1px 4px #374151;
+}

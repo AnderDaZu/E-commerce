@@ -11,7 +11,7 @@
 
 
     <!-- Slider main container -->
-    <div class="swiper">
+    <div class="swiper mb-12">
         <!-- Additional required wrapper -->
         <div class="swiper-wrapper">
 
@@ -31,8 +31,33 @@
         <div class="swiper-button-next"></div>
 
         <!-- If we need scrollbar -->
-        <div class="swiper-scrollbar"></div>
+        {{-- <div class="swiper-scrollbar"></div> --}}
     </div>
+
+    <x-cstm-container>
+        <h1 class="text-lg sm:text-xl md:text-2xl font-extrabold uppercase text-gray-700 mb-4">
+            Últimos Productos
+        </h1>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+            @foreach ($lastProducts as $product)
+                <article class="bg-white shadow-md rounded-lg overflow-hidden">
+                    <img src="{{ $product->image }}" class="h-56 object-cover object-center w-full" alt="">
+                    <div class="w-full px-4 pb-5 pt-2 bg-gray-50">
+                        <h3 class="text-base md:text-lg md:leading-5 font-semibold text-gray-700 hover:cursor-pointer line-clamp-2 min-h-[46px] flex items-center capitalize sm:mb-2"
+                            title="{{ $product->name }}">
+                            {{ $product->name }}
+                        </h3>
+
+                        <div class="flex justify-between">
+                            <p class="text-sm"><span class="font-medium mr-2">COP</span> ${{ $product->price }}</p>
+                            <a href="" class="text-sm italic text-blue-700 underline">Ver más</a>
+                        </div>
+                    </div>
+                </article>
+            @endforeach
+        </div>
+    </x-cstm-container>
 
     @push('js')
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
@@ -42,6 +67,10 @@
             // Optional parameters
             // direction: 'vertical',
             loop: true,
+
+            autoplay: {
+                delay: 4000,
+            },
 
             // If we need pagination
             pagination: {
