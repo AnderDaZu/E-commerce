@@ -45,17 +45,17 @@
                                 <x-dropdown-link href="{{ route('profile.show') }}">
                                     Pérfil
                                 </x-dropdown-link>
-    
+
                                 <!-- Authentication -->
                                 <form method="POST" action="{{ route('logout') }}" x-data>
                                     @csrf
-    
+
                                     <x-dropdown-link href="{{ route('logout') }}"
                                             @click.prevent="$root.submit();">
                                         {{ __('Log Out') }}
                                     </x-dropdown-link>
                                 </form>
-    
+
                                 <div class="border-t border-gray-200"></div>
                             @endguest
                         </x-slot>
@@ -66,12 +66,12 @@
                 </div>
             </div>
             <div class="flex-1 flex">
-                <label class="inline-flex items-center px-2 md:px-3 text-sm text-gray-500 bg-gray-300 border rounded-e-0 border-gray-400 border-e-0 rounded-s-md hover:cursor-pointer" 
+                <label class="inline-flex items-center px-2 md:px-3 text-sm text-gray-500 bg-gray-300 border rounded-e-0 border-gray-400 border-e-0 rounded-s-md hover:cursor-pointer"
                     for="search"
                     title="Buscar producto">
                     <i class="fa-solid fa-magnifying-glass w-4 h-4"></i>
                 </label>
-                <x-input type="text" class="w-full rounded-none rounded-e-lg" 
+                <x-input type="text" class="w-full rounded-none rounded-e-lg"
                     {{-- wire:model="search" --}}
                     placeholder="Buscar por producto, tienda o marca"
                     id="search" />
@@ -146,7 +146,7 @@
                     <ul>
                         @foreach ($families as $family)
                             <li wire:mouseover="$set('family_id', {{ $family->id }})">
-                                <a href="" class="flex items-center p-4 hover:bg-blue-500 hover:text-white hover:font-semibold hover:border-y hover:border-y-blue-600 text-shadow-blue-4 {{ $family->id == $family_id ? 'bg-blue-500 text-white font-semibold border-r-[3px] border-r-blue-600 text-shadow-blue-4' : 'text-gray-700' }}">
+                                <a href="{{ route('families.show', $family) }}" class="flex items-center p-4 hover:bg-blue-500 hover:text-white hover:font-semibold hover:border-y hover:border-y-blue-600 text-shadow-blue-4 {{ $family->id == $family_id ? 'bg-blue-500 text-white font-semibold border-r-[3px] border-r-blue-600 text-shadow-blue-4' : 'text-gray-700' }}">
                                     {{ $family->name }}
                                     <i class="fa-solid fa-angle-right ml-auto"></i>
                                 </a>
@@ -160,7 +160,7 @@
                 <div class="bg-gray-50 h-[calc(100vh-56px)] px-6 py-8 overflow-auto">
                     <div class="flex justify-between mb-4 md:text-lg uppercase font-semibold bg-blue-500 py-2 px-4 rounded-sm">
                         <h3 class="text-gray-50">{{ $this->familyName }}</h3>
-                        <a href="" class="text-lg text-gray-50 hover:text-white">
+                        <a href="{{ route('families.show', $family_id) }}" class="text-lg text-gray-50 hover:text-white">
                             <i class="fa-solid fa-angle-right"></i>
                         </a>
                     </div>
