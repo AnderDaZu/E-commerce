@@ -1,7 +1,7 @@
 <div class="">
-    <x-cstm-container class="flex">
+    <x-cstm-container class="md:flex">
         @if (count($options))
-            <aside class="w-52 flex-shrink-0 mr-8">
+            <aside class="w-full mb-6 md:mb-0 md:w-52 md:flex-shrink-0 md:mr-8">
                 <ul class="space-y-4">
                     @foreach ($options as $option)
                         <li x-data="{
@@ -37,7 +37,7 @@
             </aside>
         @endif
 
-        <div class="flex-1 space-y-6">
+        <div class="md:flex-1 space-y-6">
             <div class="flex items-center min-w-[250px] overflow-auto">
                 <span class="min-w-[98px]">Ordenar por:</span>
                 <x-cstm-select class="ml-4" wire:model="orderBy">
@@ -47,7 +47,7 @@
                 </x-cstm-select>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
                 @foreach ($products as $product)
                     <article class="bg-white shadow-md rounded-lg overflow-hidden">
                         <img src="{{ $product->image }}" class="h-56 object-cover object-center w-full" alt="">

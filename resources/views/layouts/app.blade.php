@@ -28,7 +28,7 @@
     <body class="font-sans antialiased">
         <x-banner />
 
-        <div class="min-h-screen bg-gray-100 min-w-[520px]">
+        <div class="min-h-screen bg-gray-100 min-w-[340px]">
             {{-- @livewire('navigation-menu') --}}
             @livewire('navigation')
 
