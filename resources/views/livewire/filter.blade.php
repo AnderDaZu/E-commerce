@@ -66,7 +66,9 @@
                 @endforeach
             </div>
 
-            <hr class="my-6">
+            @if ( $products->hasPages() )
+                <hr class="my-6">
+            @endif
 
             <div>
                 {{ $products->links() }}
