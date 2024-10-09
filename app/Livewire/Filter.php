@@ -13,6 +13,7 @@ class Filter extends Component
     public $family_id;
     public $options;
     public $selected_features = [];
+    public $orderBy = 1;
 
     public function mount()
     {
@@ -36,10 +37,19 @@ class Filter extends Component
         $products = Product::whereHas('subcategory.category', function ($query) {
             $query->where('family_id', $this->family_id);
         })
-            ->when($this->selected_features, function ($query) {
-                $query->whereHas('variants.features', function ($query) {
-                    $query->whereIn('features.id', $this->selected_features);
-                });
+        ->when($this->orderBy == 1, function($query) {
+            $query->orderBy('created_at', 'desc');
+        })
+        ->when($this->orderBy == 2, function($query) {
+            $query->orderBy('price', 'desc');
+        })
+        ->when($this->orderBy == 3, function($query) {
+            $query->orderBy('price', 'asc');
+        })
+        ->when($this->selected_features, function ($query) {
+            $query->whereHas('variants.features', function ($query) {
+                $query->whereIn('features.id', $this->selected_features);
+            });
         })
         ->paginate(12);
         return view('livewire.filter', compact('products'));

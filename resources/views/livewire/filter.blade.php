@@ -42,7 +42,8 @@
         <div class="md:flex-1 space-y-6">
             <div class="flex items-center min-w-[250px] overflow-auto">
                 <span class="min-w-[98px]">Ordenar por:</span>
-                <x-cstm-select class="ml-4" wire:model="orderBy">
+                <x-cstm-select class="ml-4" wire:model="orderBy"
+                    wire:model.live="orderBy">
                     <option value="1">Relevancia</option>
                     <option value="2">Precio: mayor a menor</option>
                     <option value="3">Precio: menor a mayor</option>
