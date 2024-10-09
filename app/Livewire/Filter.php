@@ -12,6 +12,7 @@ class Filter extends Component
     use WithPagination;
     public $family_id;
     public $options;
+    public $selected_features = [];
 
     public function mount()
     {
@@ -25,13 +26,20 @@ class Filter extends Component
                 });
             }
         ])
-        ->get();
+        ->get()->toArray();
+        // se convierte en array para que cuando se renderice la vista no vuelva a realizar la consulta y con ello evitar que se cargue
+        // todos los features asociados a las opciones si no solos los features que se relacionan con los productos a mostrar
     }
 
     public function render()
     {
         $products = Product::whereHas('subcategory.category', function ($query) {
             $query->where('family_id', $this->family_id);
+        })
+            ->when($this->selected_features, function ($query) {
+                $query->whereHas('variants.features', function ($query) {
+                    $query->whereIn('features.id', $this->selected_features);
+                });
         })
         ->paginate(12);
         return view('livewire.filter', compact('products'));

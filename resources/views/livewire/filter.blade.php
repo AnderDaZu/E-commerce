@@ -13,19 +13,21 @@
                                     'shadow-none transition-shadow': !open,
                                     'shadow-md transition-shadow': open
                                 }">
-                                {{ $option->name }}
+                                {{ $option['name'] }}
                                 <i class="fa-solid transition-all" :class="{
                                     'fa-angle-right': !open,
                                     'fa-angle-down': open
                                 }"></i>
                             </button>
                             <ul class="mt-2 space-y-1" x-show="open">
-                                @foreach ($option->features as $feature)
+                                @foreach ($option['features'] as $feature)
                                     <li>
                                         <label class="inline-flex items-center cursor-pointer">
-                                            <x-checkbox class="mr-2 cursor-pointer" />
+                                            <x-checkbox class="mr-2 cursor-pointer"
+                                                wire:model.live="selected_features"
+                                                value="{{ $feature['id'] }}" />
                                             <span>
-                                                {{ $feature->description }}
+                                                {{ $feature['description'] }}
                                             </span>
                                         </label>
                                     </li>
