@@ -50,24 +50,31 @@
                 </x-cstm-select>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
-                @foreach ($products as $product)
-                    <article class="bg-white shadow-md rounded-lg overflow-hidden">
-                        <img src="{{ $product->image }}" class="h-56 object-cover object-center w-full" alt="">
-                        <div class="w-full px-4 pb-5 pt-2 bg-gray-50">
-                            <h3 class="text-base md:text-lg md:leading-5 font-semibold text-gray-700 hover:cursor-pointer line-clamp-2 min-h-[46px] flex items-center capitalize sm:mb-2"
-                                title="{{ $product->name }}">
-                                {{ $product->name }}
-                            </h3>
+            @if ( $products->count() )
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+                    @foreach ($products as $product)
+                        <article class="bg-white shadow-md rounded-lg overflow-hidden">
+                            <img src="{{ $product->image }}" class="h-56 object-cover object-center w-full" alt="">
+                            <div class="w-full px-4 pb-5 pt-2 bg-gray-50">
+                                <h3 class="text-base md:text-lg md:leading-5 font-semibold text-gray-700 hover:cursor-pointer line-clamp-2 min-h-[46px] flex items-center capitalize sm:mb-2"
+                                    title="{{ $product->name }}">
+                                    {{ $product->name }}
+                                </h3>
 
-                            <div class="flex justify-between">
-                                <p class="text-sm"><span class="font-medium mr-2">COP</span> ${{ $product->price }}</p>
-                                <a href="" class="text-sm italic text-blue-700 underline">Ver más</a>
+                                <div class="flex justify-between">
+                                    <p class="text-sm"><span class="font-medium mr-2">COP</span> ${{ $product->price }}</p>
+                                    <a href="" class="text-sm italic text-blue-700 underline">Ver más</a>
+                                </div>
                             </div>
-                        </div>
-                    </article>
-                @endforeach
-            </div>
+                        </article>
+                    @endforeach
+                </div>
+            @else
+                <div class="w-full py-2 px-3 rounded-md bg-blue-600 flex justify-between items-center" id="mensaje">
+                    <p class="text-gray-100 text-shadow-gray italic"><span class="text-gray-50 font-semibold not-italic">Información:</span> No se encontraron resultados...</p>
+                    <i class="text-gray-100 fa-solid fa-circle-xmark hover:cursor-pointer" title="Cerrar" onclick="cerrarMensaje()"></i>
+                </div>
+            @endif
 
             @if ( $products->hasPages() )
                 <hr class="my-6">
@@ -79,3 +86,13 @@
         </div>
     </x-cstm-container>
 </div>
+
+@push('js')
+    <script>
+        function cerrarMensaje()
+        {
+            const mensaje = document.getElementById('mensaje');
+            mensaje.style.display = 'none';
+        }
+    </script>
+@endpush

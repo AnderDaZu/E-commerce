@@ -73,6 +73,7 @@
                 </label>
                 <x-input type="text" class="w-full rounded-none rounded-e-lg"
                     {{-- wire:model="search" --}}
+                    oninput="search(this.value)"
                     placeholder="Buscar por producto, tienda o marca"
                     id="search" />
             </div>
@@ -183,3 +184,16 @@
         </div>
     </div>
 </div>
+
+@push('js')
+    <script>
+        function search(value)
+        {
+            if ( value.trim().length > 0 ) {
+                Livewire.dispatch('search', {
+                    search: value.trim()
+                });
+            }
+        }
+    </script>
+@endpush
