@@ -13,6 +13,7 @@ class Filter extends Component
     use WithPagination;
     public $family_id;
     public $category_id;
+    public $subcategory_id;
     public $options;
     public $selected_features = [];
     public $orderBy = 1;
@@ -44,6 +45,18 @@ class Filter extends Component
                 }
             ]);
         })
+        ->when($this->subcategory_id, function($query) {
+            $query->whereHas('products', function ($query) {
+                $query->where('subcategory_id', $this->subcategory_id);
+            })
+            ->with([
+                'features' => function ($query) {
+                    $query->whereHas('variants.product', function ($query) {
+                        $query->where('subcategory_id', $this->subcategory_id);
+                    });
+                }
+            ]);
+        })
         ->get()->toArray();
         // se convierte en array para que cuando se renderice la vista no vuelva a realizar la consulta y con ello evitar que se cargue
         // todos los features asociados a las opciones si no solos los features que se relacionan con los productos a mostrar
@@ -60,6 +73,9 @@ class Filter extends Component
                 $query->whereHas('subcategory', function ($query) {
                     $query->where('category_id', $this->category_id);
                 });
+            })
+            ->when($this->subcategory_id, function ($query) {
+                $query->where('subcategory_id', $this->subcategory_id);
             })
             ->when($this->orderBy == 1, function ($query) {
                 $query->orderBy('created_at', 'desc');

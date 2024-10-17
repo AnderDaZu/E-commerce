@@ -171,9 +171,11 @@
                                 <a href="{{ route('categories.show', $category) }}" class="text-blue-500 font-semibold uppercase inline-block pt-4">
                                     {{ $category->name }}
                                 </a>
-                                <ul class="mt-4 space-y-1">
+                                <ul class="mt-4 space-y-2 flex flex-col">
                                     @foreach ($category->subcategories as $subcategory)
-                                        <li class="text-sm">{{ $subcategory->name }}</li>
+                                        <li>
+                                            <a href="{{ route('subcategories.show', $subcategory->id) }}" class="text-sm inline">{{ $subcategory->name }}</a>
+                                        </li>
                                     @endforeach
                                 </ul>
                             </li>
