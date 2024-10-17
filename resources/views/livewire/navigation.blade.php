@@ -168,7 +168,7 @@
                     <ul class="grid gap-6 divide-y-2 xl:divide-y-0 md:grid-cols-1 xl:grid-cols-3">
                         @foreach ($this->categories as $category)
                             <li class="leading-5">
-                                <a href="" class="text-blue-500 font-semibold uppercase inline-block pt-4">
+                                <a href="{{ route('categories.show', $category) }}" class="text-blue-500 font-semibold uppercase inline-block pt-4">
                                     {{ $category->name }}
                                 </a>
                                 <ul class="mt-4 space-y-1">
@@ -189,7 +189,7 @@
     <script>
         function search(value)
         {
-            if ( value.trim().length > 0 ) {
+            if ( value.trim().length >= 0 ) {
                 Livewire.dispatch('search', {
                     search: value.trim()
                 });
